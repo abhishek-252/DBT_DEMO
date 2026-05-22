@@ -4,7 +4,7 @@ WITH trips as (
 
     RIDE_ID,
     RIDEABLE_TYPE,
-    DATE(TO_TIMESTAMP(STARTED_AT)) AS TRIP_DATE,
+    DATEADD(YEAR,-5,DATE(TO_TIMESTAMP(STARTED_AT))) AS TRIP_DATE,
     START_STATIO_ID as START_STATION_ID,
     END_STATION_ID,
     MEMBER_CSUAL AS MEMBER_CASUAL,
@@ -12,9 +12,6 @@ WITH trips as (
 
     from {{ source('demo', 'bike') }}
     where ride_id <> 'ride_id'
-    
-    limit 20
-
 )
 
 select *
